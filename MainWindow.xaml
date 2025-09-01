@@ -1,0 +1,75 @@
+<Window x:Class="MicRouteSwitch.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Icon="icon.ico"
+        Title="MicRouteSwitch" Height="530" Width="720"
+        WindowStartupLocation="CenterScreen">
+  <Grid Margin="16">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <TextBlock Text="Select Real Microphone (Capture):" FontWeight="SemiBold"/>
+    <ComboBox x:Name="MicCombo" Grid.Row="0" Margin="0,24,0,8" Height="28" Background="Black"/>
+
+    <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,8,0,8">
+      <TextBlock Text="Select VB-CABLE Playback Devices (CABLE Input):" FontWeight="SemiBold"/>
+      <DockPanel Margin="0,6,0,0">
+        <TextBlock Text="Application 1:" Width="120" VerticalAlignment="Center"/>
+        <ComboBox x:Name="CableACombo" Height="28" Margin="8,0,0,0"/>
+      </DockPanel>
+      <DockPanel Margin="0,6,0,0">
+        <TextBlock Text="Application 2:" Width="120" VerticalAlignment="Center"/>
+        <ComboBox x:Name="CableBCombo" Height="28" Margin="8,0,0,0"/>
+      </DockPanel>
+    </StackPanel>
+
+    <StackPanel Grid.Row="2" Orientation="Vertical" Margin="0,8,0,8">
+      <CheckBox x:Name="HoldModeCheck" Content="Hold hotkey to send to Application 2 (release for Application 1)"
+                IsChecked="True" />
+      <DockPanel Margin="0,6,0,0">
+        <TextBlock Text="Hotkey:" Width="120" VerticalAlignment="Center"/>
+        <TextBlock x:Name="HotkeyDisplay" VerticalAlignment="Center" FontWeight="SemiBold"/>
+        <Button x:Name="SetHotkeyBtn" Content="Set Hotkey" Width="110" Height="28" Margin="12,0,0,0" Click="SetHotkeyBtn_Click"/>
+      </DockPanel>
+      <TextBlock x:Name="CaptureHint" Text="Click 'Set Hotkey' then press a key (with modifiers)..." 
+                 Foreground="Gray" Visibility="Collapsed"/>
+    </StackPanel>
+
+        <Border Grid.Row="3" Padding="12" CornerRadius="8" Background="#0F000000">
+            <StackPanel>
+                <TextBlock Text="Instructions:" FontWeight="Bold" Margin="0,0,0,6"/>
+                <TextBlock TextWrapping="Wrap" xml:space="preserve">• Install VB-Audio Virtual Cable with two lines (A and B). You can get it from: https://vb-audio.com/Cable
+• In any app that should receive your voice, choose “CABLE Output A” or “CABLE Output B” as the microphone input.
+• This app captures your real microphone (selected above) and feeds it into “CABLE Input A” and “CABLE Input B”.
+  To other programs, these appear as “CABLE Output A” and “CABLE Output B”.
+• The hotkey controls which line is active:
+    –  Hold Mode: Hold the key → send to Application 2 (B), release → send to Application 1 (A).
+    –  Toggle Mode: Press the key once to switch between A and B.</TextBlock>
+                <TextBlock x:Name="StatusText" Margin="0,12,0,0" FontWeight="SemiBold"/>
+            </StackPanel>
+        </Border>
+
+        <DockPanel Grid.Row="4" Margin="0,12,0,0">
+            <!-- Checkbox on left -->
+            <CheckBox x:Name="TrayToggle"
+              Content="Minimize and close to system tray"
+              Margin="0,0,10,0"
+              IsChecked="True"
+              VerticalAlignment="Center"
+              DockPanel.Dock="Left"/>
+
+            <!-- Buttons on right -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                <Button x:Name="RefreshBtn" Content="Refresh Devices" Width="140" Height="32" Margin="0,0,8,0" Click="RefreshBtn_Click"/>
+                <Button x:Name="StartBtn" Content="Start Routing" Width="140" Height="32" Margin="0,0,8,0" Click="StartBtn_Click"/>
+                <Button x:Name="StopBtn" Content="Stop" Width="100" Height="32" Click="StopBtn_Click" IsEnabled="False"/>
+            </StackPanel>
+        </DockPanel>
+
+    </Grid>
+</Window>
